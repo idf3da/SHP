@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>Clicker - 1</title>
+    </head>
+    <body>
+        <div id="id1" class="clicker">0</div>
+    </body>
+    <script>
+        'use strict';
+        let a = 0;
+        id1.addEventListener("click", function(){
+            a += 1
+            id1.innerHTML = a;
+        });
+    </script>
+    <style>
+        .clicker{
+            color: #000080;
+            background-color: #00AFFF;
+            border: 5px solid #000080;
+            font-size: 50px;
+            font-family: monospace;
+            text-align: center;
+            border-radius: 10px;
+            display: inline-block;
+            padding: 20px;
+            padding-right: 35px;
+            padding-left: 35px;
+            
+        }
+    </style>
+
+</html>
