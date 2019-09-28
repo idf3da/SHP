@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>1.1</title>
+    </head>
+
+    <body>
+        <input type="button" value="Don't touch me." id="btn1">
+    </body>
+
+</html>
+
+<script>
+    'use strict'
+    let r = "Right click";
+    let l = "Left click";
+    btn1.addEventListener('mouseover', function(){
+        btn1.value = "I said Don't touch me!";
+    });
+    btn1.addEventListener('mouseout', function(){
+        btn1.value = "He just left me alone";
+    });
+
+</script>

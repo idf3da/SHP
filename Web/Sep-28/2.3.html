@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>2.1</title>
+    </head>
+
+    <body>
+        <p id='id1', class='box'></p>
+    </body>
+
+</html>
+
+<script>
+    'use strict'
+    document.addEventListener('keyup', function(keyboard){
+        id1.innerHTML = id1.innerHTML + keyboard.key
+    });
+    
+    </script>
+
+<style>
+
+    body{
+        background: #222222;
+        font-family: monospace;
+        color: #00ff00;
+        width: fit-content;
+        height: fit-content;
+    }
+
+</style>
