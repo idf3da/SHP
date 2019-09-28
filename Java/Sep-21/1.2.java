@@ -11,6 +11,6 @@ class Add
       a = in.nextInt();
       b = in.nextInt();
      
-      System.out.println((a + b));
+      System.out.println((a - b));
    }
 }
