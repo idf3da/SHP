@@ -49,12 +49,12 @@ while running:
                 logos.pop()                
             elif event.key == pygame.K_RIGHT:
                 for i in logos:
-                    i.speed[0] += 1
-                    i.speed[1] += 1
+                    i.speed[0] *= 1.2
+                    i.speed[1] *= 1.2
             elif event.key == pygame.K_LEFT:
                 for i in logos:
-                    i.speed[0] -= 1
-                    i.speed[1] -= 1
+                    i.speed[0] /= 1.2
+                    i.speed[1] /= 1.2
     
     for i in logos:
         if i.rect.left <= 0 or i.rect.right >= resolution[0]:
