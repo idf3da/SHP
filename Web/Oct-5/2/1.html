@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>2.1</title>
+    </head>
+
+    <body>
+        <div class="follower" id='id2'>
+
+        </div> 
+    </body>
+
+</html>
+
+<script>
+    'use strict'
+        document.addEventListener('mousemove', function(mouse){
+        let x = mouse.clientX
+        let y = mouse.clientY
+        id2.style.top = y - 22 + "px"
+        id2.style.left = x - 22 + "px"
+    });
+    id1.addEventListener('contextmenu', function(e){
+        e.preventDefault();
+    });
+    
+    </script>
+
+<style>
+
+    .follower{
+        background-color: greenyellow;
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 16px;
+        left: 8px;
+        
+    }
+
+</style>
