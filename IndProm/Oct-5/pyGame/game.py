@@ -9,10 +9,8 @@ class Player():
         if dy != 0:
             self.move_single(0, dy)
     def move_single(self, dx, dy):
-        if 0 <= self.rect[0] + self.rect[2] + dx <= resolution[0]:
-            self.rect.x += dx
-        if 0 <= self.rect[1] + self.rect[3] + dy <= resolution[1]:
-            self.rect.y += dy
+        self.rect.x += dx
+        self.rect.y += dy
 
 resolution = (640, 420)
 speedo = 3
