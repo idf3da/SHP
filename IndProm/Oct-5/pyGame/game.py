@@ -9,11 +9,17 @@ class Player():
         if dy != 0:
             self.move_single(0, dy)
     def move_single(self, dx, dy):
-        self.rect.x += dx
-        self.rect.y += dy
+        if 0 <= self.rect[0]:
+            self.rect.x += dx
+        elif dx > 0:
+            self.rect.x += dx
+        if 0 <= self.rect[1]:
+            self.rect.y += dy
+        elif dy > 0:
+            self.rect.y += dy
 
 resolution = (640, 420)
-speedo = 3
+speedo = 5
 
 pygame.init()
 screen = pygame.display.set_mode(resolution)
