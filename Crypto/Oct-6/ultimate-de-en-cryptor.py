@@ -1,16 +1,17 @@
 import random
 
-win1251 = {}
-
-rus = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯфбвгдежзийклмнопрстуфхцчшщъыьэюя'
-for i in range(0, len(rus)):
-    win1251[i + 192] = rus[i]
+num2rus = {}
+rus_c = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯфбвгдежзийклмнопрстуфхцчшщъыьэюя'
+for i in range(0, len(rus_c)):
+    num2rus[i + 192] = rus_c[i]
+rus2num = {v: k for k, v in num2rus.items()}
 
 class decoder():
     def __init__(self):
         self.value = True
 
     def dec2nth(self, num, base):
+        #Decimal in to number with Nth base
         if num == 0:
             return "0"
         else:
@@ -22,6 +23,7 @@ class decoder():
             return "".join(digs[::-1])
 
     def nth2dec(self, num, base):
+        #Number with Nth base to decimal
         if base <= 10:
             figures = [int(i) for i in str(num)] 
         else:
@@ -33,22 +35,27 @@ class decoder():
         return result
 
     def bin2dec(self, n):
+        #Binary to decimal
         return int(n, 2)
 
     def dec2bin(self, n):
+        #Decimal to binary
         return bin(int(n))[2:]
 
     def dec2rus(self, n):
+        #Decimal to russian character ( Win-1251 )
         if n in win1251.keys():
             return win1251[n]
         else:
             return chr(int(n))
     def chunks(self, l, n):
+        #Split array of items by 4 in each
         for i in range(0, len(l), n):
             yield l[i:i + n]
 
     
     def elias_decode(self, s):
+        #Decode Elias to deimals
         prefix = int(s[0])
         s = [int(i) for i in s[1:]]
         fragments = []
@@ -83,17 +90,38 @@ class decoder():
         final = []
 
         for i in list(self.chunks("".join(l), 8)):
-            final.append(self.dec2rus(self.bin2dec(i)))
+            final.append(self.bin2dec(i))
 
         return "".join(final)
 
     def binStr2bin(self, s, a, b):
+        #Any series of two repeating characters to binary
+        #Ex:  "ABABAB" -> 101010 if a=1, b=0
         return "".join(["1" if i == a else "0" for i in s])
 
+    def reverseArray(self, n):
+        return n[::-1]
 
-
+class encoder(decoder):
+    def __init__(self):
+        self.valur = True
+    def rus2num(self, s):
+        #Russian characters ( Win1251 ) to num array
+        return [rus2num[i] if i in rus2num else ord(i) for i in s]
+    def caesar(self, text, s):
+        #Caesar cipher | temporary only in ENG!!!
+        result = ""
+        for i in range(len(text)):
+            char = text[i]
+            if (char.isupper()):
+                result += chr((ord(char) + s-65) % 26 + 65)
+            else:
+                result += chr((ord(char) + s - 97) % 26 + 97)
+            return result
+        text = "CEASER CIPHER DEMO"
+        s = 4
 
 a = decoder()
+b = encoder()
 
-
-
+print(b.rus2num('ХАХ'))
