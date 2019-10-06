@@ -1,7 +1,7 @@
 import random
 
 num2rus = {}
-rus_c = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯфбвгдежзийклмнопрстуфхцчшщъыьэюя'
+rus_c = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюя'
 for i in range(0, len(rus_c)):
     num2rus[i + 192] = rus_c[i]
 rus2num = {v: k for k, v in num2rus.items()}
@@ -44,8 +44,8 @@ class decoder():
 
     def dec2rus(self, n):
         #Decimal to russian character ( Win-1251 )
-        if n in win1251.keys():
-            return win1251[n]
+        if int(n) in num2rus.keys():
+            return num2rus[int(n)]
         else:
             return chr(int(n))
     def chunks(self, l, n):
@@ -90,7 +90,7 @@ class decoder():
         final = []
 
         for i in list(self.chunks("".join(l), 8)):
-            final.append(self.bin2dec(i))
+            final.append(str(self.bin2dec(i)))
 
         return "".join(final)
 
@@ -105,6 +105,12 @@ class decoder():
 class encoder(decoder):
     def __init__(self):
         self.valur = True
+
+    def elias_encode(self, s):
+        s = [rus2num[i] for i in s]
+
+        return s
+
     def rus2num(self, s):
         #Russian characters ( Win1251 ) to num array
         return [rus2num[i] if i in rus2num else ord(i) for i in s]
@@ -121,7 +127,16 @@ class encoder(decoder):
         text = "CEASER CIPHER DEMO"
         s = 4
 
+
 a = decoder()
 b = encoder()
 
-print(b.rus2num('ХАХ'))
+
+s = "10110010 10100011 11010001 11101110 01000111 10101001 00110010 00101010 00100011 01001101 00100110 01001101 11110010 11".split(" ")
+s = "".join(s)
+
+
+#for i in list(a.chunks(a.elias_decode(s), 3)):
+#    print(a.dec2rus(i))
+
+print(a.elias_decode(s))
