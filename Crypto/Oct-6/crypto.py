@@ -112,3 +112,6 @@ def convert2(s, t):
 ############
 
 # Sibirsky triangle/pyrhamid
+# Hemming recovery
+# Lenght of THE THING 
+# split to s
