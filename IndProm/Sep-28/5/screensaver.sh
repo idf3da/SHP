@@ -1,7 +1,7 @@
 #!/bin/sh
 DISPLAY=":0"
 # in ms
-LOCK=240000
+LOCK=500000
 while :
 do
   IDLE=$(xprintidle)
