@@ -17,6 +17,7 @@ def dec2nth(num, base):
     #Decimal int to number with Nth base
     if num:
         num = int(num)
+        base = int(base)
         digs = []
         while num:
             digs.append(str(int(num % base)))
@@ -50,13 +51,13 @@ def dec2rus(n):
     else:
         return chr(int(n))
 
-def rus2num(s):
+def rus2dec(s):
     #Russian characters ( Win1251 ) to num array
-    return [str(rus2num[i]) if i in rus2num else str(ord(i)) for i in s]
+    return [str(rus_ascii[i]) if i in rus_ascii else str(ord(i)) for i in s]
 
 def chunk(l, n):
     #Split array of items by n in each
-    for i in range(0, len(l), n): yield l[i:i + n]
+    for i in range(0, len(l), int(n)): yield l[i:i + int(n)]
 
 def elias2dec(s):
     #Decode Elias to deimals
@@ -84,7 +85,7 @@ def elias2dec(s):
     result = [bin2dec(i) for i in frags]
     l = []
     for i in result:
-        for i in range(0, i):
+        for j in range(0, int(i)):
             l.append("1" if prefix else "0")
         prefix = 0 if prefix else 1
     final = []
@@ -94,10 +95,20 @@ def elias2dec(s):
     return final
     # Exception: line 14
 
-def Str2bin(s, a, b):
+def str2bin(s, a, b):
     #Any series of two repeating characters to binary
     #Ex:  "ABABAB" -> 101010 if a=1, b=0
     return "".join(["1" if i == a else "0" for i in s])
 
 def reverseArray(n):
     return n[::-1]
+
+def convert2(s, t):
+    return str(s) if t == "str" else int(s) if t == "int" else list(s)
+
+
+############
+## To Doo ##
+############
+
+# Sibirsky triangle/pyrhamid
