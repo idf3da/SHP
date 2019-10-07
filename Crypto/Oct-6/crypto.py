@@ -126,7 +126,6 @@ def Hemming15_112bin(s):
     ep = int("".join(bs), 2)
     if ep:
         s[ep - 1] = "0" if s[ep - 1] == "1" else "1"
-    print(s)
     del s[0]
     del s[0]
     del s[1]
