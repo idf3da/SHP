@@ -22,16 +22,17 @@ options = '''
     db) Dec2Bin
     dr) Dec2Rus
     rd) Rus2Dec
-    c) Chunk by N
-    E) Decode Elias2Dec
+     c) Chunk by N
+     E) Decode Elias2Dec
+     H) Decode Hemming 15/11 to bin
     sb) Str2bin
-split) Split by "smth"
+     s) Split by "smth"
    rev) Reverse ( 123 -> 321 )
-    j) Join arr elements in str
-    b) Revert previous operation
-    q) Quit
-    p) Print THE THING
-   FW) Write THE THING to the file'''
+     j) Join arr elements in str
+     b) Revert previous operation
+     q) Quit
+     p) Print THE THING
+    FW) Write THE THING to the file'''
 
 while True:
     clear()
@@ -49,6 +50,7 @@ while True:
     print("@>>> Iteration Num:", c)
     print("@>>> This is your thing:\n\n", thing[c],"\n")
     print("@>>> It's type is", type(thing[c]))
+    print("@>>> Length of the thing: ", len(thing[c]) if type(thing[c]) is str else len(thing[c]), len(thing[c][0]))
     print("@>>> What would you like to do?")
     print(options)
     choice = input("@>> Your choice: ")
@@ -68,7 +70,7 @@ while True:
         else:
             print("No operation to revert!")
             input("Press Enter")
-    elif choice == "split":
+    elif choice == "s":
         by = input("Split by: ")
         thing.append(thing[c].split(by))
         c += 1
@@ -100,12 +102,15 @@ while True:
         elif choice == "E":
             for z in thing[c]:
                 res.append(elias2dec(z))
+        elif choice == "H":
+            for z in thing[c]:
+                res.append(Hemming15_112bin(z))
         elif choice == "9":
             a = input("1 for: ")
             b = input("and 0 for: LOL don't care")
             for z in thing[c]:
                 res.append(str2bin(z, a))
-        elif choice == "split":
+        elif choice == "s":
             pass
         elif choice == "j":
             res = "".join(thing[c])
@@ -135,6 +140,8 @@ while True:
             res = list(chunk(thing[c], n))
         elif choice == "E":
             res = elias2dec(thing[c])
+        elif choice == "H":
+            res = Hemming15_112bin(thing[c])            ###############################
         elif choice == "sb":
             a = input("1 for: ")
             b = input("and 0 for: LOL don't care")

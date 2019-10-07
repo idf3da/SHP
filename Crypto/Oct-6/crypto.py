@@ -106,12 +106,40 @@ def reverseArray(n):
 def convert2(s, t):
     return str(s) if t == "str" else int(s) if t == "int" else list(s)
 
+def sibisky_UL2UR2any(s):
+    pass
+
+def Hemming15_112bin(s):
+    bs = [0, 0, 0, 0]
+    s = list(s)
+    for i in range(0, len(s)):
+        bp = str(bin(i + 1)[2:]).zfill(4)
+        if bp[-1] == "1":
+            bs[-1] += int(s[i])
+        if bp[-2] == "1":
+            bs[-2] += int(s[i])
+        if bp[-3] == "1":
+            bs[-3] += int(s[i])
+        if bp[-4] == "1":
+            bs[-4] += int(s[i])
+    bs = ["0" if i % 2 == 0 else "1" for i in bs]
+    ep = int("".join(bs), 2)
+    s[ep - 1] = "0" if s[ep - 1] == "1" else "1"
+    del s[0]
+    del s[0]
+    del s[1]
+    del s[4]
+    
+    return "".join(s)
+
+
+
 
 ############
 ## To Doo ##
 ############
 
 # Sibirsky triangle/pyrhamid
-# Hemming recovery
-# Lenght of THE THING 
-# split to s
+# Hemming recovery            ~~~~~~~~
+# Drop element
+
