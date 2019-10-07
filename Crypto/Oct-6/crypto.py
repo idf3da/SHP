@@ -124,12 +124,13 @@ def Hemming15_112bin(s):
             bs[-4] += int(s[i])
     bs = ["0" if i % 2 == 0 else "1" for i in bs]
     ep = int("".join(bs), 2)
-    s[ep - 1] = "0" if s[ep - 1] == "1" else "1"
+    if ep:
+        s[ep - 1] = "0" if s[ep - 1] == "1" else "1"
+    print(s)
     del s[0]
     del s[0]
     del s[1]
     del s[4]
-    
     return "".join(s)
 
 
