@@ -8,7 +8,7 @@ def clear():
 
 clear()
 
-print("This is the Ultimate Decryptor v1.0.")
+print("This is the Ultimate Decryptor v1.2.")
 thing = []
 choice = 0
 c = 0
@@ -23,8 +23,12 @@ options = '''
     dr) Dec2Rus
     rd) Rus2Dec
      c) Chunk by N
+     d) Drop element number N
      E) Decode Elias2Dec
+     M) Morse decode (00001 -> 1)
      H) Decode Hemming 15/11 to bin
+     R) RLE only on array
+    oe) Transfer even/odd to 0/1
     sb) Str2bin
      s) Split by "smth"
    rev) Reverse ( 123 -> 321 )
@@ -76,6 +80,13 @@ while True:
         c += 1
     
     elif type(thing[c]) == list:
+        new_thing = []
+        for i in thing[c]:
+            if i != '':
+                new_thing.append(i)
+        thing[c] = new_thing
+        #Remove all ''
+
         res = []
         if choice == "dn":
             n = input("Nth base: ")
@@ -94,9 +105,21 @@ while True:
         elif choice == "dr":
             for z in thing[c]:
                 res.append(dec2rus(z))
+        elif choice == "R":
+            n = int(input("Start with 0/1: "))
+            res = RLE(thing[c], n)
+        elif choice == "M":
+            for z in thing[c]:
+                res.append(binMorse2dec(z))
         elif choice == "rd":
             for z in thing[c]:
                 res.append(rus2dec(z))
+        elif choice == "oe":
+            for z in thing[c]:
+                res.append(binMorse2dec(z))
+        elif choice == "d":
+            n = int(input("Drop N, starting from 1: "))
+            res.append(dropEl(thing[c], n + 1))
         elif choice == "c":
             pass
         elif choice == "E":
@@ -110,6 +133,8 @@ while True:
             b = input("and 0 for: LOL don't care")
             for z in thing[c]:
                 res.append(str2bin(z, a))
+        elif choice == "rev":
+            res.append(reverseArray(thing[c]))
         elif choice == "s":
             pass
         elif choice == "j":
@@ -133,8 +158,17 @@ while True:
             res = dec2bin(thing[c])
         elif choice == "dr":
             res = dec2rus(thing[c])
+        elif choice == "R":
+            res = thing[c]
+        elif choice == "M":
+            res = binMorse2dec(thing[c])
+        elif choice == "oe":
+            res = OddEven2bin(thing[c])
         elif choice == "rd":
             res = rus2dec(thing[c])
+        if choice == "d":
+            n = int(input("Drop N, starting from 1: "))
+            res.append(dropEl(thing[c], n + 1))
         elif choice == "c":
             n = input("Num of chunks: ")
             res = list(chunk(thing[c], n))

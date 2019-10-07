@@ -42,7 +42,7 @@ def bin2dec(n):
 
 def dec2bin(n):
     #Decimal to binary
-    return bin(int(n))[2:]
+    return bin(int(n))[2:].zfill(8)
 
 def dec2rus(n):
     #Decimal to russian character ( Win-1251 )
@@ -133,6 +133,36 @@ def Hemming15_112bin(s):
     del s[4]
     return "".join(s)
 
+def dropEl(s, n):
+    del s[n]
+    return s
+
+def binMorse2dec(n):
+    mc = {
+        "00000" : "0",
+        "10000" : "1",
+        "11000" : "2",
+        "11100" : "3",
+        "11110" : "4",
+        "11111" : "5",
+        "01111" : "6",
+        "00111" : "7",
+        "00011" : "8",
+        "00001" : "9"
+    }
+    return mc[n]
+
+def OddEven2bin(n):
+    return "0" if int(n) % 2 == 0 else "1"
+
+def RLE(s, n):
+    # s is a list
+    start = n
+    result = []
+    for i in s:
+        result.append(int(i) * str(start))
+        start = "0" if start == "1" else "1"
+    return result
 
 
 
@@ -141,6 +171,7 @@ def Hemming15_112bin(s):
 ############
 
 # Sibirsky triangle/pyrhamid
-# Hemming recovery            ~~~~~~~~
-# Drop element
+# Hemming recovery             ++++++++
+# Drop element                 ++++++++
+# Mul replacement 000 111 222 -> 012 012 012
 
