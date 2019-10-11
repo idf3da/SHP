@@ -45,7 +45,7 @@ while True:
     ####### DEBUG ######
     ####################
     
-    print(thing)
+    #print(thing)
 
     ####################
     ####################
@@ -184,7 +184,7 @@ while True:
             smthn = input("Smnth: ")
             res = choice[c].split(smthn)
         elif choice == "rev":
-            res = reverseArray(choice[c])
+            res = reverseArray(thing[c])
         elif choice == "j":
             res = "".join(thing[c])
         thing.append(res)

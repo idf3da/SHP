@@ -89,10 +89,11 @@ def elias2dec(s):
             l.append("1" if prefix else "0")
         prefix = 0 if prefix else 1
     final = []
-    for i in list(chunk("".join(l), 8)):
-        final.append(str(bin2dec(i)))
+    #for i in list(chunk("".join(l), 8)):
+    #    final.append(str(bin2dec(i)))
 
-    return final
+    #return final
+    return "".join(l)
     # Exception: line 14
 
 def str2bin(s, a, b):
