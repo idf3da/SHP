@@ -6,7 +6,7 @@ class TraficLight():
         print('---\n-', "#" if self.step == 0 else " ", "-\n---\n---\n---\n-",
             "#" if self.step == 1 else " ", '-\n---\n---\n---\n-',
             "#" if self.step == 2 else " ", '-\n---', sep='')
-    def step123(self):
+    def stepChange(self):
         if self.step == 2:
             self.step = 0
         else:
@@ -14,5 +14,5 @@ class TraficLight():
 
 a = TraficLight()
 a.print()
-a.step123()
+a.stepChange()
 a.print()
