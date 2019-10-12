@@ -7,6 +7,8 @@ public class App{
         C c = new C();
         D d = new D();
         
+        Integer x = 0;
+
         d.cheb();
         d.lol();
         

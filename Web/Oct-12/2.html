@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>1</title>
+    </head>
+
+    <body>
+        <input type='number' id='r1'>
+        <input type='number' id='r2'>
+        <input type='button' id='btn' value='Show'>
+        <table id='test'>
+            
+        </table>
+    </body>
+
+</html>
+
+<script>
+    'use strict'
+    let el = document.getElementById('test')
+    let goods = {
+        "Яблоки" : 10,
+        "Персики" : 30,
+        "Вишня" : 55,
+        "Свекла" : 15,
+        "Морковь" : 25,
+        "Брокколи" : 35,
+        "Болгарский перец" : 40,
+        "Капуста" : 25
+    };
+
+    btn.addEventListener('click', function(){
+        el.innerHTML=''
+        for (let k in goods){
+            if (r1.value <= goods[k] && goods[k] <= r2.value){
+                let tmp = document.createElement('tr');
+                let key = document.createElement('td');
+                let value = document.createElement('td');
+
+                key.innerHTML = k;
+                value.innerHTML = goods[k];
+
+                tmp.append(key);
+                tmp.append(value);
+
+                el.append(tmp);
+            }
+        }
+    });
+
+    </script>
+
+<style>
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+</style>

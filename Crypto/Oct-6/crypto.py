@@ -108,7 +108,58 @@ def convert2(s, t):
     return str(s) if t == "str" else int(s) if t == "int" else list(s)
 
 def sibisky_UL2UR2any(s):
+    s = list(s)
+    print("So.. Obviously first two letters are")
+    print("<",*s[:2], "> ", "Index 1 and 2.", sep='')
+    L = input("Third letter in message: ")
+    if s.count(L) == 0:
+        pass
+    else:
+        ix = [i for i,val in enumerate(s) if val == L]
+        print("There are multiple", L)
+        print("Which one?")
+        print(*s)
+        for i in range(len(s)):
+            if i in ix:
+                print("^", end=' ')
+            else:
+                print(" ", end=' ')
+        print()
+        print(ix)
+        print()
+    pos = int(input("Index: "))
+    bp = []
+    print("All Korrect. This is encd blueprint.")
+    print("If blueprints sum(asterics) == len(message): pass")
+    for i in range(pos - 1, 0, -1):
+        bp.append(i)
+        print("* " * i)
+    diff = len(s) - sum(bp)
+    print(bp)
+    print("Your diffrence is", diff, "it will be")
+    print("appended descendingly.")
+    i = 0
+    while diff:
+        bp[i] += 1
+        i += 1
+        diff -= 1
+    for i in bp:
+        print("* " * i)
+    c = 0
+    for i in bp:
+        print(s[c:c+i])
+        c += i
+
+    #So flippin' hard
+    #I will
     pass
+    
+        
+
+
+
+
+
 
 def Hemming15_112bin(s):
     bs = [0, 0, 0, 0]
@@ -170,8 +221,10 @@ def RLE(s, n):
 ## To Doo ##
 ############
 
-# Sibirsky triangle/pyrhamid
+# Sibirsky triangle/pyrhamid    
 # Hemming recovery             ++++++++
 # Drop element                 ++++++++
 # Mul replacement 000 111 222 -> 012 012 012
 
+sibisky_UL2UR2any("Всуюниролдщаиивеедедамащотзёкьиен!ду?жон")
+#sibisky_UL2UR2any("Чтопсьотоо-млеян")

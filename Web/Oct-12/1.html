@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>1</title>
+    </head>
+
+    <body>
+        <table id='test'>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+        </table>
+    </body>
+
+</html>
+
+<script>
+    'use strict'
+    let el = document.getElementById('test')
+    let a = {
+        'a' : 1,
+        'b' : 2,
+        'c' : 3
+    }
+
+    for (let k in a){
+        let tmp = document.createElement('tr')
+        let key = document.createElement('td')
+        let value = document.createElement('td')
+
+        key.innerHTML = k
+        value.innerHTML = a[k]
+
+        tmp.append(key)
+        tmp.append(value)
+
+        el.append(tmp)
+
+    }
+    </script>
+
+<style>
+
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+</style>

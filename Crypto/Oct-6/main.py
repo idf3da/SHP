@@ -31,6 +31,7 @@ options = '''
     oe) Transfer even/odd to 0/1
     sb) Str2bin
      s) Split by "smth"
+@@@@@S) Sibirsky Decode (UL triangle) <-- NOT WORKING
    rev) Reverse ( 123 -> 321 )
      j) Join arr elements in str
      b) Revert previous operation
@@ -63,9 +64,10 @@ while True:
         exit()
     elif choice == "p":
         clear()
-        print("\n\n")
+        print('\n')
+        print('START THE THING\n\n')
         print(*thing[c], sep='')
-        print("\n\n")
+        print('\n\nEND THE THING\n')
         input("Press Enter")
     elif choice == "b":
         if c:
@@ -160,6 +162,8 @@ while True:
             res = dec2rus(thing[c])
         elif choice == "R":
             res = thing[c]
+        elif choice == "S":
+            res = sibisky_UL2UR2any(thing[c])
         elif choice == "M":
             res = binMorse2dec(thing[c])
         elif choice == "oe":
