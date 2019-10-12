@@ -4,8 +4,11 @@ import "fmt"
 
 func main() {
 
-	var a, b int
-	fmt.Scan(&a, &b)
-	fmt.Println(a, "-", b, "=", a-b)
+	for i := 1; i < 15; i++ {
+		for j := 1; j < 16; j++ {
+			fmt.Printf("%02x ", i*j)
+		}
+		fmt.Println()
+	}
 
 }
