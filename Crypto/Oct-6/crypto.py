@@ -226,5 +226,5 @@ def RLE(s, n):
 # Drop element                 ++++++++
 # Mul replacement 000 111 222 -> 012 012 012
 
-sibisky_UL2UR2any("Всуюниролдщаиивеедедамащотзёкьиен!ду?жон")
+#sibisky_UL2UR2any("Всуюниролдщаиивеедедамащотзёкьиен!ду?жон")
 #sibisky_UL2UR2any("Чтопсьотоо-млеян")

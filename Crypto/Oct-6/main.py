@@ -64,10 +64,9 @@ while True:
         exit()
     elif choice == "p":
         clear()
-        print('\n')
         print('START THE THING\n\n')
         print(*thing[c], sep='')
-        print('\n\nEND THE THING\n')
+        print('\n\nEND THE THING')
         input("Press Enter")
     elif choice == "b":
         if c:
@@ -171,8 +170,8 @@ while True:
         elif choice == "rd":
             res = rus2dec(thing[c])
         if choice == "d":
-            n = int(input("Drop N, starting from 1: "))
-            res.append(dropEl(thing[c], n + 1))
+            n = int(input("Drop N, starting from 0: "))
+            res = dropEl(thing[c], n)
         elif choice == "c":
             n = input("Num of chunks: ")
             res = list(chunk(thing[c], n))
