@@ -215,6 +215,22 @@ def RLE(s, n):
         start = "0" if start == "1" else "1"
     return result
 
+def dig2order(s):
+    
+
+
+def tabReplacementPassword(s, password):
+    res = []
+    for i in range(0, len(s) // len(password)):
+        res.append(list(s[i::4]))
+    print(list(password))
+    print(*res, sep='\n')
+    password = [int(rus2dec(i)[0]) - 223 for i in list(password)]
+    
+    for i in range(0, len(password)):
+        index = password.index(min(password))
+        print(index + 1)
+        del password[index]
 
 
 ############
@@ -225,6 +241,9 @@ def RLE(s, n):
 # Hemming recovery             ++++++++
 # Drop element                 ++++++++
 # Mul replacement 000 111 222 -> 012 012 012
+# tab replacement
 
 #sibisky_UL2UR2any("Всуюниролдщаиивеедедамащотзёкьиен!ду?жон")
 #sibisky_UL2UR2any("Чтопсьотоо-млеян")
+
+tabReplacementPassword("ыеиттх  мжтс  мьоое ", "банан")

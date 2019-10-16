@@ -1,43 +1,30 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
-func oddCount(a, b uint32) byte {
-	var res byte
-	odd1, odd2 := 0, 0
-	for a > 0 {
-		n := a % 10
-		if n != 0 {
-			if n%2 != 0 {
-				odd1++
-			}
-			n = b % 10
-			if n%2 != 0 {
-				odd2++
-			}
+func oddCounter(x uint32) byte {
+	var c byte
+	for x > 0 {
+		if x%10%2 != 0 {
+			c++
 		}
-		a /= 10
+		x /= 10
 	}
-
-	if odd1 > odd2 {
-		res = 1
-	} else if odd1 < odd2 {
-		res = 2
-	} else if odd1 == odd2 {
-		res = 0
-	}
-
-	return res
+	return c
 }
 
 func main() {
-
-	var a, b uint32
-
-	fmt.Scan(&a, &b)
-
-	fmt.Print(oddCount(a, b))
-
+	var num1, num2 uint32
+	fmt.Scan(&num1, &num2)
+	o1, o2 := oddCounter(num1), oddCounter(num2)
+	switch {
+	case o1 > o2:
+		fmt.Println(1)
+	case o2 > o1:
+		fmt.Println(2)
+	case o1 == o2:
+		fmt.Println(0)
+	default:
+		fmt.Println("???")
+	}
 }
