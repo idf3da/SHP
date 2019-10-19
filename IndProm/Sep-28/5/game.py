@@ -29,7 +29,9 @@ class logo():
         self.rect[1] = random.randint(0, resolution[1] - self.rect[3])
     
     def rand_color(self):
-        self.img = pygame.image.load("DVD"+str(random.randint(1, 7))+".png")
+        self.img = pygame.image.load("DVD" + str(random.randint(1, 7))+".png")
+    def collides(self, b):
+        return self.rect.colliderect(b.rect)
 
 running = True
 
@@ -55,7 +57,7 @@ while running:
                 for i in logos:
                     i.speed[0] /= 1.2
                     i.speed[1] /= 1.2
-    
+
     for i in logos:
         if i.rect.left <= 0 or i.rect.right >= resolution[0]:
             i.speed[0] = -i.speed[0]
@@ -63,10 +65,18 @@ while running:
         if i.rect.top <= 0 or i.rect.bottom >= resolution[1]:
             i.speed[1] = -i.speed[1]
             i.rand_color()
+                
 
     screen.fill(backgroundColor)
 
     for i in logos:
+        for j in [k for k in logos if k != i]:
+            if i.collides(j):
+                temp = i.speed
+                i.speed = j.speed
+                j.speed = temp
+                i.rand_color()
+                j.rand_color()
         screen.blit(i.img, i.rect)
         i.rect = i.rect.move(i.speed)
 
