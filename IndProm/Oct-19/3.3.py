@@ -1,23 +1,15 @@
-n=input().split()
-n[0]=int(n[0])
-n[1]=int(n[1])
-a=[]
-for i in range(n[0]):
-    l=input().split()
-    l = [int(l[j]) for j in range(n[1])]
-    a.append(l)
-for i in range(n[0]):
-    for j in range(n[1]):
-        if (a[i][j]==0):
-            print(" ", end="")
-        elif (a[i][j]==1):
-            print("#", end="")
-        elif (a[i][j] == 2):
-            print("x", end="")
-        elif (a[i][j] == 3):
-            print("_", end="")
-        elif (a[i][j] == 4):
-            print("!", end="")
-        else:
-            print("*", end="")
-    print()
+with open("maze.in", "r", encoding="UTF-8") as f:
+        lines = f.readlines()
+        n, m = map(int, lines[0].split())
+        symbols_map = {0: ' ', 1: '#', 2: 'x', 3: '_', 4: '!', 5: '*'}
+        i = 0
+        file = open("maze.out", "w")
+        for ii in range(len(lines)):
+            if i != 0:
+                line = lines[ii]
+                numbers = map(int, line.split())
+                for number in numbers:
+                    file.write(symbols_map[number])
+                file.write("\n")
+            i += 1
+        file.close()

@@ -1,16 +1,15 @@
 with open("input.txt", 'r') as f:
-    data = f.readlines()
-d = data[0].split("\n")[0].split(" ")
-a = []
-print(d)
-for i in d:
-    if i != '':
-        a.append(int(i))
-print(a)
+    data = f.read().split()
+
+count = list()
+
+for i in range(len(data)):
+    if i == int(data[i]) - 1:
+        count.append(data[i])
+
 with open("output.txt", 'w') as f:
-    if len(a):
-        for i in range(0, len(a)):
-            if i + 1 == a[i]:
-                f.write(str(a[i]) + ' ')
+    if len(count) == 0:
+        f.write('No solution')
     else:
-        f.write("No solution")
+        for i in count:
+            f.write(i + ' ')
