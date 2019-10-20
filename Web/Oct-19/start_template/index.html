@@ -37,7 +37,7 @@
 
                 <!-- ВЫПАДАЮЩИЙ СПИСОК "ВЫБОР ЯЗЫКА" -->
                 <label class="uk-margin-top-small">Язык</label>
-                <select class="uk-input">
+                <select class="uk-input" id="langHighlight">
                     <option value="javascript" selected>JavaScript</option>
                     <option value="html">HTML</option>
                     <option value="css">CSS</option>
@@ -47,7 +47,7 @@
 
                 <!-- ВЫПАДАЮЩИЙ СПИСОК "ЦВЕТОВАЯ ТЕМА" -->
                 <label class="uk-margin-top-small">Тема</label>
-                <select class="uk-input">
+                <select class="uk-input" id="colorTheme">
                     <option value="pastel_on_dark">Pastel on dark (тёмн)</option>
                     <option value="clouds">Clouds (светл)</option>
                     <option value="ambiance">ambiance</option>
@@ -60,7 +60,7 @@
 
                 <!-- ПОЛЕ "РАЗМЕР ШРИФТА" -->
                 <label class="uk-margin-top-small">Размер шрифта</label>
-                <input type="number" class="uk-input" value="16">
+                <input type="number" class="uk-input" value="16" id="fontSize">
                 
             </section>
         </div>
@@ -82,18 +82,39 @@
     <script>
         "use strict";
         // Globals
-        let editor;
+        let editorChange;
 
-
-        // ПРИ СОБЫТИИ ПОЛНОЙ ЗАГРУЗКИ СТРАНИЦЫ ИНИЦИАЛИЗИРУЕМ ПЛАГИН РЕДАКТОРА
         document.addEventListener('DOMContentLoaded', ()=>{
-            // Инициализируем плагин ACE
-            editor = ace.edit("editor");
-            // Выставляем цветовую схему из настроек
-            editor.setTheme("ace/theme/pastel_on_dark");
-            // Выставляем язык из настроек
-            editor.session.setMode("ace/mode/javascript");
+            editorChange = ace.edit("editor");
+            editorChange.setTheme("ace/theme/pastel_on_dark");
+            editorChange.session.setMode("ace/mode/javascript");
         });
+
+        let colorSchemeList = document.querySelector('#colorTheme');
+        colorSchemeList.addEventListener('change', function(){
+            editorChange.setTheme("ace/theme/" + colorSchemeList.value);
+        });
+
+        let langHighightScheme = document.querySelector('#langHighlight');
+        langHighightScheme.addEventListener('change', function(){
+            editorChange.session.setMode("ace/mode/" + langHighightScheme.value);
+        });
+
+        let fontSizeField = document.querySelector('#fontSize');
+        fontSizeField.addEventListener('change', function(){
+            document.querySelector('#editor').style.fontSize = fontSizeField.value + "px";
+        });
+
+        document.querySelector('#fontSizePlusBtn').addEventListener('click', function(){
+            fontSizeField.value ++;
+            document.querySelector('#editor').style.fontSize = fontSizeField.value + "px";
+        });
+
+        document.querySelector('#fontSizeMinusBtn').addEventListener('click', function(){
+            fontSizeField.value --;
+            document.querySelector('#editor').style.fontSize = fontSizeField.value + "px";
+        });
+
     </script>
 </body>
 
