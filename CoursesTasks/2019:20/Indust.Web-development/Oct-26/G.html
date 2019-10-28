@@ -1,0 +1,68 @@
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            font-size: 18px;
+            color:#35495e;
+        }
+
+        .container{
+            width: 700px;
+            margin: auto;
+        }
+
+        ul{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        li{
+            display: block;
+            border: 2px solid #41b782;
+            margin: 10px 0;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        li:hover{
+            background: #5cb88f33;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="app">
+        <h2>Дела на сегодня:</h2>
+        <ul>
+            <li v-for="task in todo"><p> {{task}} </p></li>
+        </ul>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                todo:[
+                    'Решить ДЗ',
+                    'Изучить документацию Vue.js',
+                    'Сварить макароны',
+                    'Купить молоко',
+                    'Перейти на Linux'
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
+

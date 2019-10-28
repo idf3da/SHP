@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app" class="container">
+        <div class="img" id="app">
+            <p id="top"> {{top}} </p>
+            <p id="bottom"> {{bottom}} </p>
+            <img v-bind:src="url">
+        </div>
+        <hr>
+        <div>
+            <lable>Image address</lable>
+            <input v-model="url">
+            <label>Верхняя надпись:</label>
+            <textarea v-model="top" placeholder="TOPTEXT"></textarea>
+            <label>Нижняя надпись:</label>
+            <textarea v-model="bottom" placeholder="BOTTOMTEXT"></textarea>
+        </div>
+    </div>
+</body>
+
+<script>
+        new Vue({
+            el: '#app',
+            data: {
+                top : "",
+                bottom : "",
+                url : "background.jpg"
+            }
+        })
+</script>
+</html>

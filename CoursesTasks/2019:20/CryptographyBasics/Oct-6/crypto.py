@@ -215,10 +215,6 @@ def RLE(s, n):
         start = "0" if start == "1" else "1"
     return result
 
-def dig2order(s):
-    
-
-
 def tabReplacementPassword(s, password):
     res = []
     for i in range(0, len(s) // len(password)):
