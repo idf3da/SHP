@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        body{
+            font-family: 'Arial', sans-serif;
+            color: #444444;
+            background-color: #f7f7f7;
+            padding: 20px 50px;
+        }
+        .settings{
+            box-sizing: border-box;
+            width: 450px;
+            transition: 1s;
+        }
+        .settings-Hidden{
+            display: none;
+            transition: 1s;
+        }
+        .settings input{
+            box-sizing: border-box;
+            width: 100%;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+        }
+        .card{
+            box-sizing: border-box;
+            box-shadow: 7px 7px 5px 0px #3232328c;
+            border-radius: 5px;
+            width: 450px;
+            height: 220px;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: #ffffff;
+        }
+        .card hr{
+            width: 100px;
+            margin: 0;
+        }
+        .card img{
+            float: left;
+            height: 120px;
+        }
+        *:first-child{
+            margin-top: 0;
+        }
+        *:last-child{
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h1>Генератор визиток</h1>
+    <input type="button" value="Hide settings" v-on:click="toggleSettingsView" id="settingsButton">
+    <div class="settings" id="settings">
+        <label>Фамилия:</label>
+        <input type="text" v-model="surname">
+        <label>Имя:</label>
+        <input type="text" v-model="name">
+        <label>Отчество:</label>
+        <input type="text" v-model="middleName">
+        <label>Ссылка на фото:</label>
+        <input type="text" v-model="imgLink">
+        <label>Сфера деятельности:</label>
+        <input type="text" v-model="workingSphere">
+        <label>E-mail:</label>
+        <input type="text" v-model="email">
+        <label>Телефон:</label>
+        <input type="text" v-model="pnumber">
+    </div>
+ 
+    <div class="card">
+        <h2>{{surname+" "+name+" "+middleName}}</h2>
+        <img :src=imgLink>
+        <h3>{{workingSphere}}</h3>
+        <hr>{{getFullName()}}</hr>
+        <p><b>E-mail: </b>{{email}}</p>
+        <p><b>Тел: </b>{{pnumber}}</p>
+    </div>
+</div>
+ 
+<!-- Здесь неплохо было бы подключить Vue.js -->
+<script>
+    new Vue({
+        el: '#app',
+
+        data: {
+            surname: "SURNAME",
+            name: "NAME",
+            middleName: "MIDDLE_NAME",
+            imgLink: "https://my.informatics.ru/media/ck_uploads/abkadirov_rr/2018/11/27/boy.png",
+            workingSphere: "WORKING_SPHERE",
+            email: "MAIL@MAIL.COUNTRY",
+            pnumber: "X(XXX) XXX XX-XX"
+        },
+        methods: {
+            toggleSettingsView(){
+                let settingsID = document.getElementById('settings');
+                let settingsButton = document.getElementById('settingsButton')
+                settingsID.classList.toggle('settings-Hidden');
+                if (settingsButton.value == "Hide settings") {
+                    settingsButton.value = "Show settings";
+                } else {
+                    settingsButton.value = "Hide settings";
+                }
+            },
+            getFullName(){
+                return this.name + " " + this.surname + " " + this.middleName
+            }
+        },
+        mounted(){
+            this.getFullName()
+        }
+    })
+</script>
+</body>
+</html>

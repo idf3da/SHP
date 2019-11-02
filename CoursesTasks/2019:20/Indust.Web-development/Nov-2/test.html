@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<script src="https://unpkg.com/vue"></script>
+<style>
+        .todo-item{
+            padding: 20px;
+            margin-top: 4px;
+            border: 1px dashed black;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .important-thing {
+            background-color: blue;
+            color: yellow;
+        }
+        .not-important-thing {
+            background-color: green;
+            color: brown;
+        }
+        .very-important-thing {
+            background-color: red;
+            color: white;
+        }
+        #app {
+            max-width: 350px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+<div class="todo-item" :style="styleForTodo(todo)" v-for="todo in todos">
+{{todo.title}} ( {{todo.priority}} )
+</div>
+</div>
+<script>
+    new Vue({
+        el:'#app',
+        data:{
+           todos: []
+        },
+        methods:{
+            generate(){
+                for (let i =0; i < 10; i++){
+                    this.todos.push({
+                        title: 'title ' + i,
+                        priority: i % 3
+                    })
+                }
+            },
+            styleForTodo(todo){
+                let min = 0x448df4
+                let max = 0x5488ff
+                let minPriority = 0
+                let maxPriority = 10
+                
+                let result = 0xff12ff.toString(16)
+                return {
+                    'background-color': '#'+result
+                }
+
+            },
+            todoClasses(todo){
+                return {
+                    'not-important-thing': todo.priority == 0,
+                    'important-thing': todo.priority == 1,
+                    'very-important-thing': todo.priority == 2
+                }
+            }
+        },
+        mounted(){
+            this.generate()
+        }
+    })
+</script>
+</body>
+</html>
