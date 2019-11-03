@@ -17,7 +17,7 @@ func main() {
 	fmt.Scan(&m)
 	fmt.Scan(&p)
 
-	copy(arr[p-1:], arr[p:])
+	copy(arr[p-2:], arr[p:])
 
 	for _, el := range arr {
 		fmt.Print(el, " ")
