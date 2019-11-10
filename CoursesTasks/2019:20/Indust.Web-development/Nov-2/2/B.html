@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+    <style>
+        body{
+            font-family: 'Arial', sans-serif;
+            color: #444444;
+            background-color: #f7f7f7;
+            padding: 20px 50px;
+        }
+        input{
+            box-sizing: border-box;
+            width: 400px;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            border: 2px solid #a3a3a3
+        }
+        .green{
+            border: 2px solid #6be471
+        }
+        .red{
+            border: 2px solid #e46b6b
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <h1>Подпишись на наши новости</h1>
+    <label>Телефон:</label>
+    <input type="text" v-model="number" id="inp" :class="{ green: isPhoneValid, red: !isPhoneValid }">
+</div>
+<script>
+    new Vue({
+        el:'#app',
+        data: {
+            number: "+X (XXX) XXX XX-XX"
+        },
+        methods:{
+
+        },
+        mounted(){
+
+        },
+        computed: {
+            isPhoneValid() {
+                var numbers = /[0123456789+() ]/;
+                if(this.number.match(numbers)) {
+                    console.log("GREEN")
+                    return true;
+                }
+                else {
+                    console.log("RED")
+                    return false;
+            }
+            }
+        },
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+    <style>
+        /* Общие стили */
+        *{
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            color: #35495e;
+        }
+        h1{
+            margin-bottom: 40px;
+        }
+        .container{
+            width: 500px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="container">
+        <h1>Ты овощ. Но какой?</h1>
+        <p>
+            Ответь на вопросы и узнай свою классификацию...
+        </p>
+        <fieldset>
+            <legend>Каким лучше быть?</legend>
+            <label><input type="radio" value="Умным" v-model="first">Умным</label>
+            <label><input type="radio" value="Красивым" v-model="first">Красивым</label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Какой цвет лучше?</legend>
+            <label><input type="radio" value="Зелёный" v-model="second">Зелёный</label>
+            <label><input type="radio" value="Красный" v-model="second">Красный</label>
+        </fieldset>
+    
+        <fieldset>
+            <legend>Что лучше?</legend>
+            <label><input type="radio" value="Круглое" v-model="third">Круглое</label>
+            <label><input type="radio" value="Квадратное" v-model="third">Квадратное</label>
+        </fieldset>
+
+        <h2>Я...</h2>
+        <p>
+            {{ getYourType }}
+        </p>
+    </div>
+</div>
+ 
+</body>
+
+<script>
+new Vue({
+        el: '#app',
+        data: {
+            first: "",
+            second: "",
+            third: "",
+        },
+        computed: {
+            getYourType() {
+                if (this.first === "Умным") {
+                    if (this.second === "Зелёный") {
+                        if (this.third === "Круглое") {
+                            return "артишок"
+                        } else if (this.third === "Квадратное") {
+                            return "брокколи"
+                        }
+                    } else if (this.second === "Красный") {
+                        if (this.third === "Круглое") {
+                            return "помидор"
+                        } else if (this.third === "Квадратное") {
+                            return "редис"
+                        }
+                    }
+                } else if (this.first === "Красивым") {
+                    if (this.second === "Зелёный") {
+                        if (this.third === "Круглое") {
+                            return "оливка"
+                        } else if (this.third === "Квадратное") {
+                            return "огурец"
+                        }
+                    } else if (this.second === "Красный") {
+                        if (this.third === "Круглое") {
+                            return "болгарский перец"
+                        } else if (this.third === "Квадратное") {
+                            return "болгарский перец"
+                        }
+                    }
+                } else {
+                    return "Никто...."
+                }
+            }
+        }
+    })
+</script>
+</html>

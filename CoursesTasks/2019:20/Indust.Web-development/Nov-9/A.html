@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+    <style>
+        /* Общие стили */
+        *{
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            color: #35495e;
+        }
+        button{
+            display: inline-block;
+            padding: 10px 30px;
+            background-color: transparent;
+            border: 3px solid #35495e;
+            font-size: 16px;
+            cursor: pointer;
+            transition: .1s;
+            margin-bottom: 10px;
+        }
+        button:hover{
+            background-color: #44c38a34;
+        }
+        button:active{
+            transform: scale(0.96);
+        }
+ 
+        /* Классы */
+        .box{
+            width: 200px;
+            height: 200px;
+            background-color: #35495e;
+            transition: .3s;
+            margin-bottom: 20px;
+            border: 0px solid #44C38A;
+        }
+        .bordered{
+            border-width: 5px;
+        }
+        .rounded{
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="box" :class="{ bordered: isBordered, rounded: isRounded }"></div>
+</div>
+    
+</body>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            isBordered: false,
+            isRounded: false,
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <img src="https://my.informatics.ru/media/ck_uploads/abkadirov_rr/2019/10/01/fdc03d0caf8bdfa2d9ac970ce86be4ab.jpg">
+    <p>Выберите таблетку:</p>
+    <select v-model="choice">
+        <option value="red">Красная</option>
+        <option value="blue">Голубая</option>
+    </select>
+    <p>{{ changeSelfFate }}</p>
+</div>
+ 
+</body>
+
+<script>
+new Vue({
+    el: "#app",
+    data: {
+        choice: "",
+    },
+    computed:{
+        changeSelfFate(){
+            if (this.choice === "red") {
+                console.log(123)
+                return "Вы проснулись. Как хорошо, что это был сон и жизнь продолжает идти своим чередом"
+            } else if (this.choice === "blue") {
+                return "Как оказалось, волшебная страна может не быть прекрасной. Вы очнулись в ужасном месте..."
+            }
+        }
+    }
+})
+</script>
+</html>

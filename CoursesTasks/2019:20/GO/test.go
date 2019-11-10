@@ -2,20 +2,23 @@ package main
 
 import "fmt"
 
+const (
+	n = 30
+)
+
 func main() {
-	jobs := make(chan int, 100)
-	results := make(chan int, 100)
+	jobs := make(chan int, n)
+	results := make(chan int, n)
 
-	go worker(jobs, results)
-	go worker(jobs, results)
-	go worker(jobs, results)
-	go worker(jobs, results)
+	for i := 0; i < n; i++ {
+		go worker(jobs, results)
+	}
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < n; i++ {
 		jobs <- i
 	}
 
-	for j := 0; j < 100; j++ {
+	for j := 0; j < n; j++ {
 		fmt.Println(<-results)
 	}
 }
