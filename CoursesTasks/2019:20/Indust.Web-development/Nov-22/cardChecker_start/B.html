@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CardChecker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div class="card" id="app">
+
+        <!-- Здесь будет выводиться ЛОГОТИП БАНКА -->
+        <div class="bank">
+            <img :src=getBankNameByDigs()>
+        </div>
+
+        <!-- Поле для ввода НОМЕРА КАРТЫ -->
+        <div class="number-container">
+            <input type="text" placeholder="Номер карты" v-model="cardNum" v-bind:class="{ 'input-ok': isValidLenght(), 'input-err': !isValidLenght()}">
+            <div class="status" v-bind:class="{ 'status-ok': isValidLenght(), 'status-err': !isValidLenght()}"></div>
+        </div>
+
+        <!-- Поле для ввода ИМЕНИ ДЕРЖАТЕЛЯ -->
+        <div class="name-container">
+            <input type="text" placeholder="Имя держателя">
+            <div class="status"></div>
+        </div>
+
+        <!-- Логотип ПЛАТЕЖНОЙ СИСТЕМЫ -->
+        <div class="pay-system">
+            <img :src=getPaymentSystemImgSrc()>
+        </div>
+
+    </div>
+
+<script>
+
+    new Vue({
+        el: '#app',
+        data: {
+            cardNum: "",
+            holderName: "2"
+        },
+        methods: {
+            getPaymentSystemImgSrc(){
+                prefix = "img/systems/"
+                if (this.cardNum[0] == "2") {
+                    return prefix + "mir.png"
+                } else if (this.cardNum[0] == "3") {
+                    return prefix + "american-exp.png"
+                } else if (this.cardNum[0] == "4") {
+                    return prefix+"visa.png"
+                } else if (this.cardNum[0] == "5") {
+                    return prefix+"mastercard.png"
+                } else if (this.cardNum[0] == "6") {
+                    return prefix+"maestro.png"
+                } else {
+                    return ""
+                }
+            },
+            isValidLenght() {
+                return this.cardNum.length === 16
+            },
+            getBankNameByDigs() {
+                prefix = "img/banks/"
+                alpha = ["521178", "548673", "548601", "415428", "676371", "477964", "479004"]
+                vtb = ["427229", "527883", "447520"]
+                gasprombank = ["548999", "526483"]
+                mtcbank = ["533736", "540616"]
+                otkryitie = ["434146", "405870", "544573", "532301"]
+                rosbank = ["440503", "554761"]
+                russtandart = ["513691", "510047"]
+                raiphaizen = ["462730", "462729"]
+                sber = ["427683", "427901", "427644", "427601", "427901", "427631", "427638", "546938"]
+                tinkoff = ["521324", "437773"]
+
+                num = this.cardNum.substring(0, 6)
+
+                if (alpha.includes(num)) {
+                    return prefix+"alpha.png"
+                } else if (vtb.includes(num)) {
+                    return prefix+"vtb.png"
+                } else if (gasprombank.includes(num)) {
+                    return prefix+"gazprombank.png"
+                } else if (mtcbank.includes(num)) {
+                    return prefix+"mts-bank.png"
+                } else if (otkryitie.includes(num)) {
+                    return prefix+"otkrytie.png"
+                } else if (rosbank.includes(num)) {
+                    return prefix+"rosbank.png"
+                } else if (russtandart.includes(num)) {
+                    return prefix+"russian_standart.png"
+                } else if (raiphaizen.includes(num)) {
+                    return prefix+"raiffaizen.png"
+                } else if (sber.includes(num)) {
+                    return prefix+"sberbank.png"
+                } else if (tinkoff.includes(num)) {
+                    return prefix+"tinkoff.png"
+                } else {
+                    return ""
+                }
+            }
+        },
+    })
+
+</script>
+
+</body>
+</html>

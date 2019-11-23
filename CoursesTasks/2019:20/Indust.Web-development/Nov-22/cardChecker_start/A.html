@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CardChecker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div class="card" id="app">
+
+        <!-- Здесь будет выводиться ЛОГОТИП БАНКА -->
+        <div class="bank">
+            <img src="img/banks/sberbank.png">
+        </div>
+
+        <!-- Поле для ввода НОМЕРА КАРТЫ -->
+        <div class="number-container">
+            <input type="text" placeholder="Номер карты" v-model="cardNum">
+            <div class="status"></div>
+        </div>
+
+        <!-- Поле для ввода ИМЕНИ ДЕРЖАТЕЛЯ -->
+        <div class="name-container">
+            <input type="text" placeholder="Имя держателя">
+            <div class="status"></div>
+        </div>
+
+        <!-- Логотип ПЛАТЕЖНОЙ СИСТЕМЫ -->
+        <div class="pay-system">
+            <img :src=getPaymentSystemImgSrc()>
+        </div>
+
+    </div>
+
+<script>
+
+    new Vue({
+        el: '#app',
+
+        data: {
+            cardNum: "",
+            holderName: "2"
+        },
+        methods: {
+            getPaymentSystemImgSrc(){
+                prefix = "img/systems/"
+                if (this.cardNum[0] == "2") {
+                    return prefix + "mir.png"
+                } else if (this.cardNum[0] == "3") {
+                    return prefix + "american-exp.png"
+                } else if (this.cardNum[0] == "4") {
+                    return prefix+"visa.png"
+                } else if (this.cardNum[0] == "5") {
+                    return prefix+"mastercard.png"
+                } else if (this.cardNum[0] == "6") {
+                    return prefix+"maestro.png"
+                } else {
+                    return ""
+                }
+            }
+        },
+    })
+
+</script>
+
+</body>
+</html>

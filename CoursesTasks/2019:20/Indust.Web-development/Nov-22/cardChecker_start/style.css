@@ -1,0 +1,107 @@
+*{box-sizing: border-box;}
+body{
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+
+.card{
+    width: 566px;
+    height: 366px;
+    background-color: #eff5f8;
+    border-radius: 20px;
+    box-shadow: 0px 0px 15px 0px rgba(50, 50, 50, 0.5);
+    position: relative;
+    padding: 30px;
+}
+
+
+.number-container{
+    position: absolute;
+    top: 170px;
+    display: flex;
+}
+.number-container input{
+    width: 370px;
+}
+.name-container{
+    position: absolute;
+    top: 270px;
+    display: flex;
+}
+.name-container input{
+    width: 260px;
+}
+
+
+input{
+    border: 1px solid #aaa;
+    padding: 2px;
+    font-family: monospace;
+    font-size: 30px;
+    font-weight: 400;
+    color: #555;
+    text-transform: uppercase;
+    background-color: #f6fcff;
+    transition: .3s;
+}
+
+
+
+
+/* Input states */
+.input-ok{
+    border-color: #30b424;
+}
+.input-err{
+    border-color: #fa6364;
+}
+
+/* Status of input */
+.status{
+    width: 59px;
+    height: 59px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 40px 40px;
+    transition: .3s;
+}
+
+/* Status states */
+.status-ok{
+    background-image: url('img/check.png');
+}
+.status-err{
+    background-image: url('img/cross.png');
+}
+
+
+.pay-system{
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+.pay-system img, .bank img{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.bank{
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
