@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    table, td {
+      border: 1px solid black;
+    }
+  </style>
+  <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+</head>
+<body>
+  История вычислений
+    <table>
+      <tbody>
+        {% for item in items %}
+        <tr data-id="{{item.id}}">
+          <td>
+            {{ item.first }}
+          </td>
+          <td>
+            {{ item.second }}
+          </td>
+          <td>
+            {{ item.result }}
+          </td>
+          <td>
+            {% if item.author != None %}
+              {{ item.author.name }} ({{ item.author.ip }})
+            {% else %}
+              Аноним
+            {% endif %}
+          </td>
+          <td>
+            <button class="delete-button" data-id="{{item.id}}" > Удали </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <script>
+      $('.delete-button').click(function(event) {
+        var id = $(event.target).data('id')
+        $.ajax({
+          url: '/delete-calc-history/' + id,
+          type: 'DELETE',
+          success: function(result) {
+            console.log("I DONE", $('tr[data-id='+id+']'))
+            $('tr[data-id='+id+']').remove()
+          },
+          error: function(err) {
+            console.log('err', err)
+          }
+        });
+      });
+    </script>
+</body>
+</html>
