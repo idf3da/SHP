@@ -65,21 +65,8 @@ func main() {
 	var i io.Reader
 	var o io.Writer
 
-	if *output != "" {
-		outF, err := os.Create(*output)
-		checkError(err)
-		o = outF
-	} else {
-		o = os.Stdout
-	}
-
-	if *input != "" {
-		inpF, err := os.Open(*input)
-		checkError(err)
-		i = inpF
-	} else {
-		i = os.Stdin
-	}
+	i = os.Stdin
+	o = os.Stdout
 
 	keyByte := (*key)[0]
 
