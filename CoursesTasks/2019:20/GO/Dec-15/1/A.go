@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 )
 
 func _checkBasic(err error) {
@@ -19,13 +20,13 @@ func main() {
 	var a float64
 	_, err = fmt.Fscanln(f, &a)
 
-	fmt.Println("float:", a)
-
 	r := 3.14 * a * a
+
+	str := strconv.FormatFloat(r, 'f', 6, 64)
 
 	f, err = os.Create("output.txt")
 	_checkBasic(err)
 
-	_, err = fmt.Fprintln(f, r)
+	_, err = fmt.Fprint(f, str)
 
 }
