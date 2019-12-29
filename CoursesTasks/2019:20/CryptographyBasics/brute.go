@@ -3,28 +3,11 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"sync"
 )
 
 func num2bi(n int) string {
 	return strconv.FormatInt(int64(n), 2)
-}
-
-func comb(n, m int, emit func([]int)) {
-	s := make([]int, m)
-	last := m - 1
-	var rc func(int, int)
-	rc = func(i, next int) {
-		for j := next; j < n; j++ {
-			s[i] = j
-			if i == last {
-				emit(s)
-			} else {
-				rc(i+1, j+1)
-			}
-		}
-		return
-	}
-	rc(0, 0)
 }
 
 func hashing(s string) int {
@@ -51,8 +34,68 @@ func hashing(s string) int {
 	return k
 }
 
+func GenerateCombinations(alphabet string, length int) <-chan string {
+	c := make(chan string)
+	go func(c chan string) {
+		defer close(c)
+
+		AddLetter(c, "", alphabet, length)
+	}(c)
+
+	return c
+}
+func AddLetter(c chan string, combo string, alphabet string, length int) {
+	if length <= 0 {
+		return
+	}
+
+	var newCombo string
+	for _, ch := range alphabet {
+		newCombo = combo + string(ch)
+		c <- newCombo
+		AddLetter(c, newCombo, alphabet, length-1)
+	}
+}
+
+func brute(f <-chan string, expected int, resH int, resS string, res []string, c int) {
+	for combination := range f {
+		hash := hashing(combination)
+
+		fmt.Println(combination, c)
+
+		if hash == expected {
+			resH = hash
+			resS = combination
+			res = append(res, combination)
+		}
+	}
+}
+
 func main() {
-	comb(5, 3, func(c []int) {
-		fmt.Println(c)
-	})
+
+	var resH, lenght, expected int
+	var resS, dict string
+	var wg sync.WaitGroup
+	// var memoryAccess sync.Mutex
+
+	res := make([]string, 0)
+	wg.Add(2)
+
+	lenght = 3
+	dict = "123"
+	expected = 22369
+
+	f := GenerateCombinations(dict, lenght)
+
+	// go brute(f, expected, resH, resS, res, 1)
+	// go brute(f, expected, resH, resS, res, 2)
+
+	for i, el := range f {
+		fmt.Println(i, el)
+	}
+
+	wg.Wait()
+
+	fmt.Println("Done: ", resH, resS)
+	fmt.Println(res)
 }
