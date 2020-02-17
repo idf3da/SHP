@@ -1,0 +1,1 @@
+print("}ksat_5dm_rof_galf_gn0l_yllaer{ftcphs"[::-1])
