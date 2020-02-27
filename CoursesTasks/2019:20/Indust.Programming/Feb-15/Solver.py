@@ -77,7 +77,7 @@ class BaseEquationSolver():
     def print_solution(self):
         print("Result: ", end='')
         for solution in self.solutions:
-            print(solution, end=' ')
+            print(solution, end='')
 
 a = BaseEquationSolver()
 a.input_equation_type()

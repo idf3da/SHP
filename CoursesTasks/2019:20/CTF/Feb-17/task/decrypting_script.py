@@ -43,8 +43,7 @@ def encrypt( source_filename, enc_filename ):
 	global CHOSEN_KEYS, KEYS
 	
 	file_size = os.stat( source_filename ).st_size
-	
-	padding = BLOCK_SIZE - ( file_size % BLOCK_SIZE )
+	padding = BLOCK_SIZE - ( file_size % BLOCK_SIZE ) # 256 possible bruteforce
 	block_count = ( file_size + padding ) // BLOCK_SIZE
 	
 	with open( source_filename, 'rb' ) as inp, open( enc_filename, 'wb' ) as out:
