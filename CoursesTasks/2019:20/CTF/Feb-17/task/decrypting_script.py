@@ -69,49 +69,34 @@ def decrypt(input_crypted_file, output_file):
 	global CHOSEN_KEYS, KEYS
 
 
-	known_indexes = []
+	known_indexes = [  ]
 	known_blocks = b''
-		
-	while True:
-		print(known_indexes)
-		try:
-			null_bytes_count = {}
-			
-			inp = open( input_crypted_file, 'rb' )
-			
-			with open( input_crypted_file, 'rb' ) as inp:
-				known_indexes_copy = known_indexes[:]
-				while known_indexes_copy != []:
-					block = inp.read(256)
-					known_blocks += get_xored(block, KEYS[ known_indexes_copy[0] ])
-					known_indexes_copy =  known_indexes_copy[1:]
-
+	right_keys = []
+# * #########################################################################
+	with open( input_crypted_file, 'rb' ) as inp:
+		for block in range(0, 133):
+			with open( output_file+"_"+str(block)+".doc", 'wb' ) as out:
 				block = inp.read(256)
+
+				null_bytes_count = {}
+
 				for possible_index in KEYS:
-					with open( output_file+"_"+str(int(possible_index, 16)), 'wb' ) as out:		
-						
+					xored_block = get_xored(block, KEYS[ possible_index ])
+					null_bytes_count[ possible_index ] = xored_block.count(b'\x00')
 
-						
-						decrypted_block = get_xored(KEYS[ possible_index ], block)
-						
-						xored_block = known_blocks+decrypted_block
+				search_val = max(null_bytes_count.values())
+				for i, j in null_bytes_count.items():
+					if j == search_val:
+						right_block_index = i
 
-						out.write(xored_block)
+				right_keys.append(right_block_index)
+
+				decrypted_block = get_xored(block, KEYS[ right_block_index ])
+				out.write(known_blocks+decrypted_block)
+				known_blocks += decrypted_block
+		print(*right_keys)
 
 
-						null_bytes_count[possible_index] = xored_block.count(b'\x00')
-				
-
-			inp.close()
-			out.close()
-
-			search_val = max(null_bytes_count.values())
-			for i, j in null_bytes_count.items():    # for name, age in dictionary.iteritems():  (for Python 2.x)
-				if j == search_val:
-					known_indexes.append(i)
-		except:
-			print("EXIT")
-			exit(0)
 
 def make_key_file( filename ):
 	with open(filename, 'w') as f:
