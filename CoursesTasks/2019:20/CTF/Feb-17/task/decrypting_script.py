@@ -54,13 +54,13 @@ def encrypt( source_filename, enc_filename ):
 		for _ in range( block_count ):
 			
 			block = inp.read( 256 )
+			if len( block ) != 256:
+				print("BLOCK!", end =' ')
+				block += b'@' * padding #* padding ( 0 ~ 256 )
 			
 			index = hex_int(int(md5( block ).hexdigest()[:2],16) % 64)
-			print(md5( block ).hexdigest(), int(md5( block ).hexdigest()[:2],16) % 64, index)
 			enc_block = get_xored( block, KEYS[ index ] )
 
-			if len( block ) != 256: 
-				block += b'@' * padding #* padding ( 0 ~ 256 )
 			
 			out.write( enc_block )
 
@@ -69,37 +69,49 @@ def decrypt(input_crypted_file, output_file):
 	global CHOSEN_KEYS, KEYS
 
 
-	# * For first block only, for now
-	try:
-		for i in range(130):
-			for possible_index in KEYS:
-				with open( input_crypted_file, 'rb' ) as inp, open( output_file+"_"+str(i)+"_"+possible_index, 'wb' ) as out:
-					block = inp.read( 256 )
-					
-					decrypted_block = get_xored(block, KEYS[possible_index])
-					out.write(decrypted_block)
-	except:
-		print("EXIT")
+	known_indexes = []
+	known_blocks = b''
+		
+	while True:
+		print(known_indexes)
+		try:
+			null_bytes_count = {}
+			
+			inp = open( input_crypted_file, 'rb' )
+			
+			with open( input_crypted_file, 'rb' ) as inp:
+				known_indexes_copy = known_indexes[:]
+				while known_indexes_copy != []:
+					block = inp.read(256)
+					known_blocks += get_xored(block, KEYS[ known_indexes_copy[0] ])
+					known_indexes_copy =  known_indexes_copy[1:]
 
-	'''
-	for possible_padding in range(0, 256):		
-		for possibe_block_count in range(50):
-			try:
-				with open( input_crypted_file, 'rb' ) as inp, open( output_file+"__"+str(possible_padding)+"__"+str(possibe_block_count), 'wb' ) as out:
-					for i in range(possibe_block_count):
-						block = inp.read(256)
-						if len(block) != 256:
-							block -= b'@' * possible_padding 
+				block = inp.read(256)
+				for possible_index in KEYS:
+					with open( output_file+"_"+str(int(possible_index, 16)), 'wb' ) as out:		
+						
 
-						index = hex_int(int(md5( block ).hexdigest()[:2],16) % 64)
-						decrypted_block = get_xored(KEYS[ index ], block)
+						
+						decrypted_block = get_xored(KEYS[ possible_index ], block)
+						
+						xored_block = known_blocks+decrypted_block
 
-						out.write(decrypted_block)
-			except:
-				pass
-	'''
+						out.write(xored_block)
 
 
+						null_bytes_count[possible_index] = xored_block.count(b'\x00')
+				
+
+			inp.close()
+			out.close()
+
+			search_val = max(null_bytes_count.values())
+			for i, j in null_bytes_count.items():    # for name, age in dictionary.iteritems():  (for Python 2.x)
+				if j == search_val:
+					known_indexes.append(i)
+		except:
+			print("EXIT")
+			exit(0)
 
 def make_key_file( filename ):
 	with open(filename, 'w') as f:
@@ -124,4 +136,4 @@ generate_keys()
 	
 random_string( 15 )
 
-decrypt("R0Gw5iUw0a42BBK.doc.enc", "out/doc.doc")
+decrypt("R0Gw5iUw0a42BBK.doc.enc", "out/final_end.py")

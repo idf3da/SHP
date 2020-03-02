@@ -57,7 +57,8 @@ def encrypt( source_filename, enc_filename ):
 		for _ in range( block_count ):
 			
 			block = inp.read( BLOCK_SIZE )
-			if len( block ) != BLOCK_SIZE: 
+			if len( block ) != BLOCK_SIZE:
+				print("BLOCK!", end =' ')
 				block += b'@' * padding
 			
 			index = hex_int(int(md5( block ).hexdigest()[:2],16) % KEYS_LEN)
@@ -110,8 +111,15 @@ if __name__ == '__main__':
 	source_filename = "decrypting_script.py".strip()
 	file_ext = source_filename.split('.')[1]
 	enc_filename = random_string( 15 ) + '.{}.enc'.format(file_ext)
-	encrypt( source_filename, enc_filename )
-	pack_in_archive( enc_filename, timestamp )
+	encrypt("sample_doc.doc", "DUMMY.enc")
 	
-	os.remove( enc_filename )
 	make_key_file('enc_key.log')
+	
+	d = {}
+	for i in CHOSEN_KEYS:
+		if i not in d:
+			d[i] = 1
+		else:
+			d[i] += 1
+		
+	print(d)
