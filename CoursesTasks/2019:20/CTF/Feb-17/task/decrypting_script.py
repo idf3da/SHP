@@ -27,71 +27,84 @@ def random_hamma( length ):
 	return [random.randint(0,255) for _ in range(length)]
 
 def generate_keys():
-	for i in range(KEYS_LEN):
+	for i in range(64):
 		hex_value = hex_int(i)
 		# hex_value = hex(i)[2:] if i >= 16 else '0'+hex(i)[2:] 
 		KEYS[ hex_value ] = random_hamma( BLOCK_SIZE )
-		print("---", hex_value, i, "::::", *list(map(hex_int, KEYS[hex_value])))
-
+		
 def get_xored( block, key ):
 	# key_bytes = key.encode()
-	enc = bytes( map( lambda x: x[0]^x[1], zip( block, key ) ) )
+	enc = bytes( map( lambda x: x[0] ^ x[1], zip( block, key ) ) )
 	return enc
 
 
 def encrypt( source_filename, enc_filename ):
 	global CHOSEN_KEYS, KEYS
 	
+	# ! 256 possible combinations
 	file_size = os.stat( source_filename ).st_size
-	padding = BLOCK_SIZE - ( file_size % BLOCK_SIZE ) # 256 possible bruteforce
-	block_count = ( file_size + padding ) // BLOCK_SIZE
+	padding = 256 - ( file_size % 256 )
+
+	block_count = ( file_size + padding ) // 256
+	print(padding, block_count)
 	
+	#* padding ( 0 ~ 256 )
+
 	with open( source_filename, 'rb' ) as inp, open( enc_filename, 'wb' ) as out:
 		for _ in range( block_count ):
 			
-			block = inp.read( BLOCK_SIZE )
-			if len( block ) != BLOCK_SIZE: 
-				block += b'@' * padding
+			block = inp.read( 256 )
 			
-			index = hex_int(int(md5( block ).hexdigest()[:2],16) % KEYS_LEN)
+			index = hex_int(int(md5( block ).hexdigest()[:2],16) % 64)
+			print(md5( block ).hexdigest(), int(md5( block ).hexdigest()[:2],16) % 64, index)
 			enc_block = get_xored( block, KEYS[ index ] )
-			CHOSEN_KEYS.append( index )
+
+			if len( block ) != 256: 
+				block += b'@' * padding #* padding ( 0 ~ 256 )
 			
 			out.write( enc_block )
 
 
-def decrypt( source_filename, denc_filename ):
+def decrypt(input_crypted_file, output_file):
 	global CHOSEN_KEYS, KEYS
-	
-	file_size = os.stat(source_filename).st_size
-	
-	padding = BLOCK_SIZE - ( file_size % BLOCK_SIZE )
-	block_count = ( file_size + padding ) // BLOCK_SIZE
-	
-
-	with open( source_filename, 'rb' ) as inp, open( denc_filename, 'wb' ) as out:
-		for _ in range( block_count ):
-			
-			block = inp.read( BLOCK_SIZE )
-			if len( block ) != BLOCK_SIZE: 
-				block += b'@' * padding
-			
-			index = hex_int(int(md5( block ).hexdigest()[:2],16) % KEYS_LEN)
-			enc_block = get_xored( block, KEYS[ index ] )
-			CHOSEN_KEYS.append( index )
-			
-			out.write( enc_block )
 
 
+	# * For first block only, for now
+	try:
+		for i in range(130):
+			for possible_index in KEYS:
+				with open( input_crypted_file, 'rb' ) as inp, open( output_file+"_"+str(i)+"_"+possible_index, 'wb' ) as out:
+					block = inp.read( 256 )
+					
+					decrypted_block = get_xored(block, KEYS[possible_index])
+					out.write(decrypted_block)
+	except:
+		print("EXIT")
 
+	'''
+	for possible_padding in range(0, 256):		
+		for possibe_block_count in range(50):
+			try:
+				with open( input_crypted_file, 'rb' ) as inp, open( output_file+"__"+str(possible_padding)+"__"+str(possibe_block_count), 'wb' ) as out:
+					for i in range(possibe_block_count):
+						block = inp.read(256)
+						if len(block) != 256:
+							block -= b'@' * possible_padding 
 
+						index = hex_int(int(md5( block ).hexdigest()[:2],16) % 64)
+						decrypted_block = get_xored(KEYS[ index ], block)
+
+						out.write(decrypted_block)
+			except:
+				pass
+	'''
 
 
 
 def make_key_file( filename ):
 	with open(filename, 'w') as f:
 		
-		f.write('BLOCKSIZE:{}\n'.format(BLOCK_SIZE))
+		f.write('BLOCKSIZE:{}\n'.format(256))
 		f.write('[keys]\n')
 		
 		for key in KEYS:
@@ -111,5 +124,4 @@ generate_keys()
 	
 random_string( 15 )
 
-decrypt("R0Gw5iUw0a42BBK.test_file.py.enc", "1.decrypted.py")
-decrypt("decrypting_script.py", "1.decrypted.py")
+decrypt("R0Gw5iUw0a42BBK.doc.enc", "out/doc.doc")
