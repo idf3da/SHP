@@ -1,0 +1,7 @@
+kek lol arbidol kek lol
+kek 123
+ldl le
+123
+import os
+print(1+1)
+file.py
